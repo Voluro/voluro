@@ -12,7 +12,9 @@ while True:
     inptlen = len(inpt.split())
     if inpt == 'help':
         print("current commands: \nhelp: display all the commands and meanings\nbasevar: sets one of the basevars to a new value. Can use --pcname to change the pcname.")
-    if inptlen <= 3:
+    elif inptlen <= 3:
         if (inpt.split())[0] == 'basevar':
             if (inpt.split())[1] == '--pcname':
                 pcname = (inpt.split())[2]
+    else:
+        print("error code 1 - unknown command - invalid syntax")
