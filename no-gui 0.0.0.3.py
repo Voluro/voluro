@@ -1,13 +1,29 @@
 import time as ti
-print("Welcome to Voluro.py no-gui 0.0.0.2")
+import turtle as t
+
+#print("Welcome to Voluro.py no-gui 0.0.0.2")
+t.speed(0)
+text = ""
+t.hideturtle()
+style = ("Segoe UI Light", 11)
+list = ["W", "e", "l", "c", "o", "m", "e", " ", "t", "o", " ", "V",
+        "o", "l", "u", "r", "o", " ", "0", ".", "0", ".", "0", ".", "2"]
+t.pu()
+t.setpos(-100, 300)
+for i in range(len(list)):
+    text = text + list[i]
+    t.write(text, font=style)
+    ti.sleep(0.05)
+#loader
 loaded = False
-print("loading")
+t.pu()
+t.setpos(-15, 0)
+t.write("loading", font=style)
 while loaded != True:
     pcname = "Voluro"
     loaded = True
-print("done")
-print("type help for help")
-while True:
-    inpt = input("@" + pcname + ":")
-    if inpt == 'help':
-        print("current commands: \nhelp: display all the commands and meanings")
+#main
+t.clear()
+if t.textinput("cmd", "Enter a command") == "help": # help
+    print("help")
+t.exitonclick()
