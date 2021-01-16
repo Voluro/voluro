@@ -6,15 +6,6 @@ print("loading")
 while loaded != True:
     def reset():
         global pcname
-        global help
-        help = '''
-        help: Display all the commands and meanings
-        basevar: Sets one of the basevar to a new value. Can use --pcname to rename your pc
-        reset: Resets the system to it's defaults. All customizations will be lost
-        exit: Closes Voluro
-        launch: Launches a program. Use '--' and the program name
-        listapps: Lists all your apps
-        '''
         pcname = "Voluro"
         #here go the rest of the configs
     reset()
@@ -25,7 +16,7 @@ while True:
     inpt = input("@" + pcname + ":")
     inptlen = len(inpt.split())
     if inpt == 'help':
-        print(help)
+        print("help: Display all the commands and meanings\nbasevar: Sets one of the basevar to a new value. Can use --pcname to rename your pc\nreset: Resets the system to it's defaults. All customizations will be lost\nexit: Closes Voluro\nlaunch: Launches a program. Use '--' and the program name\nlistapps: Lists all your apps")
     elif inpt == 'reset':
         print("Are you sure?(y/n)")
         temp = input()
@@ -55,17 +46,5 @@ while True:
                     print("This command is used like this: basevar --pcname putyournamehere(no spaces are allowed)")
     elif inpt == 'listapps':
         print("clock")
-    elif inptlen <= 3:
-        if (inpt.split())[0] == 'basevar':
-            if (inpt.split())[1] == '--pcname':
-                pcname = (inpt.split())[2]
-                #try:
-                #    pcname = (inpt.split())[2]
-                #except:
-                #    print("To change your pc's name, you have to specify another name.")
-                #    print("Do you need further help with this command?(y/n)")
-                #    temp = input()
-                #    if temp == "y":
-                #        print("This command is used like this: basevar --pcname putyournamehere(no spaces are allowed)")
     else:
-        print("Command execution failed. Type help to see all commands.")
+        print("error code 1 - unknown command - invalid syntax")
