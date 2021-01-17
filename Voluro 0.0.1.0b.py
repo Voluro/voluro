@@ -1,6 +1,21 @@
 import webbrowser
-import savedsettings
-print("Welcome to Voluro.py no-gui 0.0.1.0")
+try:
+    import savedsettings
+except:
+    print("you do not have the mandatory application for Voluro to run. Would you like to install it? (y/n)")
+    temp = input()
+    if temp == "y":
+        file = open("savedsettings.py", "w")
+        file.write('''def load(name):
+    file = open(f'{name}.sdss', 'r')
+    file = file.read()
+    return file
+def save(name, val):
+    file = open(f'{name}.sdss', 'w')
+    file.write(val)
+''')
+        exit("relaunch Voluro for the specified changes to take place")
+print("Welcome to Voluro.py no-gui 0.0.1.0b")
 loaded = False
 print("loading")
 while loaded != True:
@@ -12,7 +27,7 @@ while loaded != True:
         basevar: Sets one of the basevars to a new value. Can use --pcname to rename your pc.
         reset: Resets the system to it's defaults. All customizations will be lost.
         exit: Closes Voluro.
-        launch: Launches a program.
+        -r: Launches a program.
         listapps: Lists all your apps.
         adap: adds the specified app.
         inap: opens the page for installing apps (Requires internet connection).
@@ -26,7 +41,12 @@ while loaded != True:
         apps = []
         # here go the rest of the configs
         print('loading previous settings')
-        pcname1 = str(savedsettings.load("pcname"))
+        try:
+            pcname1 = str(savedsettings.load("pcname"))
+        except:
+            savedsettings.save("pcname", "Voluro")
+            pcname1 = str(savedsettings.load("pcname"))
+
     reset()
     loaded = True
 
@@ -49,9 +69,9 @@ while True:
         exit()
     elif inptlen == 2:
         if (inpt.split())[1] == '--pcname':
+            import pcname
             pcname.pcname()
-    elif inptlen == 2:
-        if (inpt.split())[0] == 'launch':
+        elif (inpt.split())[0] == '-r':
             try:
                 exec(inpt.split()[1] + "." + inpt.split()[1] + "()")
             except:
@@ -63,6 +83,8 @@ while True:
                 apps.append(inpt.split()[1])
             except:
                 print("error code 3 - invalid app")
+        else:
+            print('error code 1 - unknown command - invalid syntax')
     elif inpt == 'inap':
         try:
             webbrowser.open('voluro.github.io')
@@ -74,4 +96,3 @@ while True:
             print(b)
     else:
         print("error code 1 - unknown command - invalid syntax")
-
