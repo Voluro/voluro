@@ -37,9 +37,7 @@ while loaded != True:
         exit: Closes Voluro.
         -r: Launches a program.
         listapps: Lists all your apps.
-        adap: adds the specified app.
         inap: opens the page for installing apps (Requires internet connection).
-        exec: executes code directly.
         '''
 
         global pos
@@ -48,12 +46,7 @@ while loaded != True:
         global apps
         global running
         global allapps
-        try:
-            apps = savedsettings.load('apps')
-        except:
-            savedsettings.save('apps', '')
-            apps = savedsettings.load('apps')
-        allapps = apps.split(", ")
+        apps = []
         # here go the rest of the configs
         print('loading previous settings')
         try:
@@ -61,7 +54,6 @@ while loaded != True:
         except:
             savedsettings.save("pcname", "Voluro")
             pcname1 = str(savedsettings.load("pcname"))
-        exec(f'import {apps}')
 
     reset()
     loaded = True
@@ -95,20 +87,9 @@ while True:
                 try:
                     exec('import' + " " + inpt.split()[1])
                     exec(inpt.split()[1] + "." + inpt.split()[1] + "()")
+                    apps.append(inpt.split()[1])
                 except:
                     print("error code 3 - invalid app")
-        elif (inpt.split())[0] == 'adap':
-            try:
-                exec('import' + " " + inpt.split()[1])
-                print('app ' + inpt.split()[1] + ' added')
-                savedsettings.append('apps', ', ' + inpt.split()[1])
-                apps = savedsettings.load('apps')
-                try:
-                    allapps = apps.split(", ")
-                except:
-                    pass
-            except:
-                print("error code 3 - invalid app")
         else:
             print('error code 1 - unknown command - invalid syntax')
     elif inpt == 'inap':
@@ -118,7 +99,7 @@ while True:
         except:
             print("error code 4 - error in getting app")
     elif inpt == 'listapps':
-        for b in allapps:
+        for b in apps:
             print(b)
     else:
         Exception: print("error code 1 - unknown command - invalid syntax")
