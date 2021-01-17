@@ -24,7 +24,7 @@ while loaded != True:
         print("setting up apps...")
         global apps
         global running
-        apps = ['clock', 'pcname']
+        apps = ['clock']
 
         def clock():
             print("The time is:")
@@ -49,8 +49,6 @@ while loaded != True:
             running = True
             if id == 0:
                 clock()
-            if id == 1:
-                runpcname()
             running = False
         # here go the rest of the configs
 
@@ -76,13 +74,9 @@ while True:
     elif inptlen >= 3:
         if (inpt.split())[1] == '--pcname':
             try:
-                pcname = (inpt.split())[2]
+                runpcname()
             except:
                 print("To change your pc's name, you have to specify another name.")
-                print("Do you need further help with this command?(y/n)")
-                temp = input()
-                if temp == "y":
-                    print("This command is used like this: basevar --pcname putyournamehere(no spaces are allowed)")
     elif inptlen == 2:
         if (inpt.split())[0] == 'launch':
             j = 0
