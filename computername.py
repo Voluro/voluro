@@ -1,5 +1,5 @@
 import savedsettings as sdss
-def pcname():
+def computername():
     impy = input("please enter your new computer name:")
     sdss.save('computername', impy)
     exit("new computername set")
