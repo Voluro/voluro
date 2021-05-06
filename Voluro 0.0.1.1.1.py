@@ -30,26 +30,21 @@ print("loading")
 
 
 print("setting up basevars...")
-global pcname1
+global computername1
 # global help
 help = '''
-help: Display all the commands and meanings.
-basevar: Sets one of the basevars to a new value. Can use --pcname to rename your pc.
-reset: Resets the system to it's defaults. All customizations will be lost.
-exit: Closes Voluro.
--r: Launches a program.
-listapps: Lists all your apps.
-inap: opens the page for installing apps (Requires internet connection).
+HELP         displays a list of all commands used in voluro
+BASEVAR      changes one of the system variables
+RESET        resets the computer
+EXIT         exits the computer
+RUN          runs a program
+LISTAPPS     lists apps
 '''
 
 global pos
-global running
 print("setting up apps...")
 global apps
-global running
-global allapps
 # List of apps configuration
-apps = []
 try:
     apps = savedsettings.load("apps").split(",")
 except:
@@ -57,16 +52,16 @@ except:
 # here go the rest of the configs
 print('loading previous settings')
 try:
-    pcname1 = str(savedsettings.load("pcname"))
+    computername1 = str(savedsettings.load("computername"))
 except:
-    savedsettings.save("pcname", "Voluro")
-    pcname1 = str(savedsettings.load("pcname"))
+    savedsettings.save("computername", "Voluro")
+    computername1 = str(savedsettings.load("computername"))
 
 
 print("done")
 print("type help for help")
 while True:
-    inpt = input("@" + pcname1 + ":")
+    inpt = input("@" + computername1 + ":").lower()
     inptlen = len(inpt.split())
     if inpt == 'help':
         print(help)
@@ -75,17 +70,17 @@ while True:
         temp = input()
         if temp == 'y':
             exit(print("bye!"))
-            savedsettings.save('pcname', 'Voluro')
+            savedsettings.save('computername', 'Voluro')
         else:
             pass
     elif inpt == 'exit':
         exit()
     elif inptlen == 2:
-        if (inpt.split())[1] == '--pcname':
-            import pcname
+        if (inpt.split())[1] == 'computername':
+            import computername
 
-            pcname.pcname()
-        elif (inpt.split())[0] == '-r':
+            computername.computername()
+        elif (inpt.split())[0] == 'run':
             try:
                 exec(inpt.split()[1] + "." + inpt.split()[1] + "()")
             except:
@@ -109,4 +104,3 @@ while True:
             print(b)
     else:
         Exception: print("error code 1 - unknown command - invalid syntax")
-v
