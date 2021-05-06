@@ -1,4 +1,5 @@
 import webbrowser
+
 try:
     import savedsettings
 except:
@@ -26,37 +27,41 @@ def append(name, val):
 print("Welcome to Voluro.py no-gui 0.0.1.0b")
 loaded = False
 print("loading")
-while loaded != True:
-    def reset():
-        print("setting up basevars...")
-        global pcname1, help
-        help = '''
-        help: Display all the commands and meanings.
-        basevar: Sets one of the basevars to a new value. Can use --pcname to rename your pc.
-        reset: Resets the system to it's defaults. All customizations will be lost.
-        exit: Closes Voluro.
-        -r: Launches a program.
-        listapps: Lists all your apps.
-        inap: opens the page for installing apps (Requires internet connection).
-        '''
 
-        global pos
-        global running
-        print("setting up apps...")
-        global apps
-        global running
-        global allapps
-        apps = []
-        # here go the rest of the configs
-        print('loading previous settings')
-        try:
-            pcname1 = str(savedsettings.load("pcname"))
-        except:
-            savedsettings.save("pcname", "Voluro")
-            pcname1 = str(savedsettings.load("pcname"))
 
-    reset()
-    loaded = True
+print("setting up basevars...")
+global pcname1
+# global help
+help = '''
+help: Display all the commands and meanings.
+basevar: Sets one of the basevars to a new value. Can use --pcname to rename your pc.
+reset: Resets the system to it's defaults. All customizations will be lost.
+exit: Closes Voluro.
+-r: Launches a program.
+listapps: Lists all your apps.
+inap: opens the page for installing apps (Requires internet connection).
+'''
+
+global pos
+global running
+print("setting up apps...")
+global apps
+global running
+global allapps
+# List of apps configuration
+apps = []
+try:
+    apps = savedsettings.load("apps").split(",")
+except:
+    savedsettings.save("apps", "")
+# here go the rest of the configs
+print('loading previous settings')
+try:
+    pcname1 = str(savedsettings.load("pcname"))
+except:
+    savedsettings.save("pcname", "Voluro")
+    pcname1 = str(savedsettings.load("pcname"))
+
 
 print("done")
 print("type help for help")
@@ -69,7 +74,7 @@ while True:
         print("Are you sure?(y/n)")
         temp = input()
         if temp == 'y':
-            reset()
+            exit(print("bye!"))
             savedsettings.save('pcname', 'Voluro')
         else:
             pass
@@ -87,6 +92,7 @@ while True:
                 try:
                     exec('import' + " " + inpt.split()[1])
                     exec(inpt.split()[1] + "." + inpt.split()[1] + "()")
+                    savedsettings.append("apps", "," + inpt.split()[1])
                     apps.append(inpt.split()[1])
                 except:
                     print("error code 3 - invalid app")
@@ -103,3 +109,4 @@ while True:
             print(b)
     else:
         Exception: print("error code 1 - unknown command - invalid syntax")
+v
