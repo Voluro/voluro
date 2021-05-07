@@ -103,4 +103,4 @@ while True:
         for b in apps:
             print(b)
     else:
-        Exception: print("error code 1 - unknown command - invalid syntax")
+        print("error code 1 - unknown command - invalid syntax")
