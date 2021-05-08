@@ -28,6 +28,9 @@ print("Welcome to Voluro.py no-gui 0.0.1.0b")
 loaded = False
 print("loading")
 
+#Error codes
+ERR1 = "Oops! An error has occured!\nVoluro did not recognize that command.\nVisit voluro.github.io for more info.\nError code:1:"
+ERR2 = "Oops! An error has occured!\nThe requested app could not be found.\nVisit voluro.github.io for more info.\nError code: 2"
 
 print("setting up basevars...")
 global computername1
@@ -90,17 +93,17 @@ while True:
                     savedsettings.append("apps", "," + inpt.split()[1])
                     apps.append(inpt.split()[1])
                 except:
-                    print("error code 3 - invalid app")
+                    print(ERR2)
         else:
-            print('error code 1 - unknown command - invalid syntax')
+            print(ERR1)
     elif inpt == 'inap':
         try:
             webbrowser.open('voluro.github.io')
             print('app ' + inpt.split()[1] + ' added')
         except:
-            print("error code 4 - error in getting app")
+            print(ERR2)
     elif inpt == 'listapps':
         for b in apps:
             print(b)
     else:
-        Exception: print("error code 1 - unknown command - invalid syntax")
+        Exception: print(ERR1)
